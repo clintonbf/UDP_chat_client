@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">UDP Chat</string>
+    <string name="call_someone">Make a call</string>
+    <string name="await_call">Wait for call</string>
+    <string name="send_hello">Send Hello</string>
+</resources>
