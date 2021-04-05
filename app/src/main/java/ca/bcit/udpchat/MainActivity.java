@@ -5,20 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
         final String message = "Watson, come here, I need you";
 
         Data d = new Data(message);
-        sendMessage(d);
-    }
-
-    public void onClickSendBattle(View v) {
-        Data d = new Data(R.raw.meepmeep);
-
         sendMessage(d);
     }
 
@@ -77,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         t.start();
     }
 
-    public void sendLongMessage(View v) {
+    public void sendLongMessage() {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -130,43 +117,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendBattle(View v) {
-        this.sendLongMessage(v);
+        this.sendLongMessage();
     }
 
     public void sendNatural(View v) {
-        this.sendLongMessage(v);
+        this.sendLongMessage();
     }
 
     public void sendMeep(View v) {
-        this.sendLongMessage(v);
-    }
-
-
-
-    public void sendSoundMessage(View v) {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-            try {
-                InetAddress address = InetAddress.getByName(hostString);
-
-                byte[] messageB;
-
-                messageB = readInSound();
-
-                DatagramSocket socket = new DatagramSocket();
-                DatagramPacket packet = new DatagramPacket(messageB, messageB.length, address, 65432);
-                socket.send(packet);
-                socket.disconnect();
-                socket.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            }
-        });
-
-        t.start();
+        this.sendLongMessage();
     }
 
     public byte[] readInSound() throws Exception {
@@ -186,29 +145,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //        dis.close();
         return music;
-    }
-
-    public void writeSound(final byte[] bytes) {
-        try {
-            String p = "./res/raw/meep.wav";
-
-            String uri = "android.resource://" + getPackageName() + "/meep.wav";
-
-            Path path = Paths.get(uri);
-            Files.write(path, bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void readWriteSound(View v) {
-        try {
-            byte[] b = readInSound();
-            writeSound(b);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void call(View v) {
