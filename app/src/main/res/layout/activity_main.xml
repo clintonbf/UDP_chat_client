@@ -8,12 +8,33 @@
     android:layout_gravity="center"
     tools:context=".MainActivity">
 
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/send_hello"-->
+<!--        android:onClick="onClickSendMessage"-->
+<!--        />-->
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/send_hello"
-        android:onClick="onClickSendMessage"
+        android:text="@string/send_battle"
+        android:onClick="sendBattle"
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/got_to_player"
+        android:onClick="goToPlayer"
+        />
+
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/send_sound"-->
+<!--        android:onClick="sendSoundMessage"-->
+<!--        />-->
 
    <Button
        android:layout_width="wrap_content"
