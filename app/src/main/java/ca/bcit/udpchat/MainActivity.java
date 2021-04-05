@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         t.start();
     }
 
-    public void sendLongMessage() {
+    public void sendLongMessage(final int resource) {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 //                messageB = longMessage.getBytes();
 
                 try {
-                    messageB = readInSound(); // <----- reading in a sound file
+                    messageB = readInSound(resource); // <----- reading in a sound file
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -117,33 +117,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendBattle(View v) {
-        this.sendLongMessage();
+        this.sendLongMessage(R.raw.battle);
     }
 
     public void sendNatural(View v) {
-        this.sendLongMessage();
+        this.sendLongMessage(R.raw.song);
     }
 
     public void sendMeep(View v) {
-        this.sendLongMessage();
+        this.sendLongMessage(R.raw.meepmeep);
     }
 
-    public byte[] readInSound() throws Exception {
-        InputStream in = getApplicationContext().getResources().openRawResource(R.raw.song);
-//        BufferedInputStream bis = new BufferedInputStream(in, 8000);
-//        DataInputStream dis = new DataInputStream(bis);
+    public byte[] readInSound(final int resource) throws Exception {
+        InputStream in = getApplicationContext().getResources().openRawResource(resource);
 
         byte[] music = new byte[in.available()];
         int read = in.read(music);
         System.out.println("Read in " + read + " bytes");
-//        int index = 0;
-//
-//        while (dis.available() > 0) {
-//            music[index] = dis.readByte();
-//            index++;
-//        }
-//
-//        dis.close();
         return music;
     }
 
