@@ -7,6 +7,8 @@
     <string name="send_sound">Send a sound</string>
     <string name="read_write_sound">Read/write sound</string>
     <string name="send_battle">Send battle</string>
+    <string name="send_natural">Send Natural One</string>
+    <string name="send_meep">Send Meepmeep!</string>
     <string name="got_to_player">Go to player</string>
 
     <string name="play">Play</string>

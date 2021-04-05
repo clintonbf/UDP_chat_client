@@ -133,6 +133,16 @@ public class MainActivity extends AppCompatActivity {
         this.sendLongMessage(v);
     }
 
+    public void sendNatural(View v) {
+        this.sendLongMessage(v);
+    }
+
+    public void sendMeep(View v) {
+        this.sendLongMessage(v);
+    }
+
+
+
     public void sendSoundMessage(View v) {
         Thread t = new Thread(new Runnable() {
             @Override

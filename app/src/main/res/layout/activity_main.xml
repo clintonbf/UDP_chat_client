@@ -15,12 +15,34 @@
 <!--        android:onClick="onClickSendMessage"-->
 <!--        />-->
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/send_battle"
-        android:onClick="sendBattle"
+        android:text="@string/send_natural"
+        android:onClick="sendNatural"
         />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_battle"
+            android:onClick="sendBattle"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_meep"
+            android:onClick="sendMeep"
+            />
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
