@@ -145,6 +145,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void goToMemo(View v) {
+        Intent i = new Intent(this.getApplicationContext(), SendAVoiceMemo.class);
+        startActivity(i);
+    }
+
+
+    public void goToRecordMemo (View v) {
+        Intent i = new Intent(this.getApplicationContext(), RecordAMemo.class);
+        startActivity(i);
+    }
+
     public byte[][] splitBytes(final byte[] data, final int chunkSize) {
         final int length = data.length;
         final byte[][] dest = new byte[(length + chunkSize - 1)/chunkSize][];

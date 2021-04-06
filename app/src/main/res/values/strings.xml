@@ -11,6 +11,9 @@
     <string name="send_meep">Send Meepmeep!</string>
     <string name="got_to_player">Go to player</string>
 
+    <string name="send_voice_memo">Send a memo</string>
+    <string name="end_memo">End memo recording</string>
+
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
