@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 final int PORT = 65432;
                 byte[] messageB = new byte[0];
 
+
+
 //                final String longMessage = new BigAssText().getText();
 //                messageB = longMessage.getBytes();
 

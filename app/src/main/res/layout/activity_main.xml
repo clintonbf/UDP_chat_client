@@ -49,12 +49,12 @@
         android:onClick="goToRecordMemo"
         />
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/got_to_player"-->
-<!--        android:onClick="goToPlayer"-->
-<!--        />-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/got_to_player"
+        android:onClick="goToPlayer"
+        />
 
 <!--   <Button-->
 <!--       android:layout_width="wrap_content"-->
