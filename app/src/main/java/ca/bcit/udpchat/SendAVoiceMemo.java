@@ -9,23 +9,20 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.PortUnreachableException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class SendAVoiceMemo extends AppCompatActivity {
-    private static final String SERVER  = "192.168.1.76";
-    private static final int PORT       = 65432;
-    private boolean mic                 = false;
+    private boolean mic = false;
     private InetAddress address;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +30,7 @@ public class SendAVoiceMemo extends AppCompatActivity {
         setContentView(R.layout.activity_send_a_voice_memo);
     }
 
-    public void sendAMemo(View v) {
-        final int       SAMPLE_RATE     = 10000;
-        final int       CHANNELS        = 1; //mono
-        final int       BIT_DEPTH       = 16; //bytes, I think
-        final double    TIME_FRAME      = 0.5; //seconds
-        final int       BUFFER_FACTOR   = 10;
-        final int       SAMPLE_SIZE     = 2;
-        final int       SAMPLE_INTERVAL = 20;
-        final int       BUF_SIZE        = SAMPLE_INTERVAL * SAMPLE_INTERVAL * SAMPLE_SIZE * 2;
-
+    public void sendAMemo() {
         this.checkRecordPermission();
 
         mic = true;
@@ -51,21 +39,37 @@ public class SendAVoiceMemo extends AppCompatActivity {
             @Override
             public void run() {
                 AudioRecord audioRecorder = new AudioRecord(
-                        MediaRecorder.AudioSource.VOICE_COMMUNICATION,
-                        SAMPLE_RATE,
+                        MediaRecorder.AudioSource.MIC,
+                        Environment.SAMPLE_RATE,
                         AudioFormat.CHANNEL_IN_MONO,
-                        AudioFormat.ENCODING_PCM_16BIT,
+                        Environment.BIT_DEPTH,
                         AudioRecord.getMinBufferSize(
-                                SAMPLE_RATE,
+                                Environment.SAMPLE_RATE,
                                 AudioFormat.CHANNEL_IN_MONO,
-                                AudioFormat.ENCODING_PCM_16BIT) * BUFFER_FACTOR);
+                                Environment.BIT_DEPTH) * Environment.BUFFER_FACTOR);
 
 
                 int bytesRead = 0;
-                byte[] buffer= new byte[BUF_SIZE];
+                byte[] buffer= new byte[Environment.BUF_SIZE];
                 try {
-                    address = InetAddress.getByName(SERVER);
+                    address = InetAddress.getByName(Environment.SERVER);
                 } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+
+                //First establish connection
+                try {
+                    DatagramSocket socket = new DatagramSocket();
+                    byte[] init = new byte[0];
+                    final String initMsg = "Hello";
+                    init = initMsg.getBytes();
+                    DatagramPacket packet = new DatagramPacket(init, init.length, address, Environment.PORT);
+                    socket.send(packet);
+                    socket.disconnect();
+                    socket.close();
+                } catch (SocketException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
@@ -75,22 +79,22 @@ public class SendAVoiceMemo extends AppCompatActivity {
                     audioRecorder.startRecording();
 
                     while (mic) {
-                        bytesRead = audioRecorder.read(buffer, 0, BUF_SIZE);
+                        bytesRead = audioRecorder.read(buffer, 0, Environment.BUF_SIZE);
 
-                        byte[] songLength = BigInteger.valueOf(bytesRead).toByteArray();
-                        DatagramPacket size = new DatagramPacket(songLength, songLength.length, address, PORT);
-                        socket.send(size);
-
-                        DatagramPacket packet = new DatagramPacket(buffer, bytesRead, address, PORT);
+                        DatagramPacket packet = new DatagramPacket(buffer, bytesRead, address, Environment.getPort());
                         socket.send(packet);
-                        Thread.sleep(SAMPLE_INTERVAL, 0);
+                        Thread.sleep(Environment.SAMPLE_INTERVAL, 0);
                     }
 
                     audioRecorder.stop();
+
+                    Toast.makeText(SendAVoiceMemo.this, "Recording stopped", Toast.LENGTH_LONG).show();
+
                     audioRecorder.release();
                     socket.disconnect();
                     socket.close();
                     mic = false;
+                    return;
                 } catch (SocketException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -117,7 +121,14 @@ public class SendAVoiceMemo extends AppCompatActivity {
         this.mic = ! this.mic;
     }
 
+    public void startRecording(View v) {
+        this.mic = true;
+        sendAMemo();
+    }
+
     public void turnMicOff(View v) {
         this.mic = false;
+
+        Log.i("SEND MEMO", "received signal to mute mic");
     }
 }
