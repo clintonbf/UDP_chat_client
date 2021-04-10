@@ -11,7 +11,6 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -88,7 +87,7 @@ public class SendAVoiceMemo extends AppCompatActivity {
 
                     audioRecorder.stop();
 
-                    Toast.makeText(SendAVoiceMemo.this, "Recording stopped", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(SendAVoiceMemo.this, "Recording stopped", Toast.LENGTH_LONG).show();
 
                     audioRecorder.release();
                     socket.disconnect();

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -23,45 +25,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClickSendMessage(View v) {
-        final String message = "Watson, come here, I need you";
-
-        Data d = new Data(message);
-        sendMessage(d);
+    public void startChatActivity(View v){
+        Intent i = new Intent(getApplicationContext(), UDPChat.class);
+        startActivity(i);
     }
 
     public void goToPlayer(View v) {
         Intent i = new Intent(this.getApplicationContext(), Player.class);
         startActivity(i);
-    }
-
-    public void sendMessage(final Data data) {
-        //So, this needs to set up a UPD socket and then send a datagram.
-        //Wait... that's it?
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    InetAddress address = InetAddress.getByName(hostString);
-
-                    byte[] messageB;
-
-                    messageB = data.getMessage().getBytes(); //Add code for a song
-
-                    DatagramSocket socket = new DatagramSocket();
-                    DatagramPacket packet = new DatagramPacket(messageB, messageB.length, address, 65432);
-                    socket.send(packet);
-                    socket.disconnect();
-                    socket.close();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        t.start();
     }
 
     public void sendLongMessage(final int resource) {
@@ -151,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this.getApplicationContext(), SendAVoiceMemo.class);
         startActivity(i);
     }
-
 
     public void goToRecordMemo (View v) {
         Intent i = new Intent(this.getApplicationContext(), RecordAMemo.class);
