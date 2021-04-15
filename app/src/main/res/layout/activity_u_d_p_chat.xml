@@ -27,6 +27,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/push_to_listen"
+        android:id="@+id/listen_btn"
+        android:onClick="startListening"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/hang_up"
         android:id="@+id/hangup_btn"
         />
