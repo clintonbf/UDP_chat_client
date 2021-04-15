@@ -17,7 +17,7 @@ import java.net.InetAddress;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String hostString =  "192.168.1.76";
+    private static final String hostString = Environment.SERVER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 final int chunkSize = 512;
-                final int PORT = 65432;
+                final int PORT = Environment.PORT;
                 byte[] messageB = new byte[0];
-
-
-
-//                final String longMessage = new BigAssText().getText();
-//                messageB = longMessage.getBytes();
 
                 try {
                     messageB = readInSound(resource); // <----- reading in a sound file
@@ -87,10 +82,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         t.start();
-    }
-
-    public void sendBattle(View v) {
-        this.sendLongMessage(R.raw.battle);
     }
 
     public void sendNatural(View v) {
