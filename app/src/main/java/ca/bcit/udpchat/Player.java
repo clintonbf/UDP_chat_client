@@ -1,7 +1,6 @@
 package ca.bcit.udpchat;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -44,7 +43,7 @@ public class Player extends AppCompatActivity {
         if (player != null) {
             player.release();;
             player = null;
-            Toast.makeText(this, "MediaPLayer released", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "MediaPlayer released", Toast.LENGTH_SHORT).show();
         }
     }
 
